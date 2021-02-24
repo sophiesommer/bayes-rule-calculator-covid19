@@ -1,0 +1,109 @@
+<html>
+<head>
+<style>
+	html, text {
+		background-color: #142836;
+		color: white;
+		font-family: 'Oxygen', sans-serif;
+		fill: white;
+	}
+	body {
+		background-color: #142836;
+		color: white;
+		font-family: 'Oxygen', sans-serif;
+		font-size: 16px;
+	}
+	table {
+		margin-top: 10px;
+	}
+	td {
+		padding: 5px;
+		font-size: 25px;
+	}
+	input {
+		color: #1e3c4e;
+		font-size: 25px;
+	}
+	.percentLabel{
+		margin-left: 3px;
+	}
+	.percentLabel{
+		margin-left: 3px;
+	}
+
+</style>
+</head>
+<body>
+<div class="container">
+<table>
+<tr>
+	<th></th>
+	<th class=""></th>
+</tr>
+<tr>
+	<td>
+	False positive rate of the test (percent chance of a positive test given that you don't have COVID-19):
+	</td>
+	<td>
+	<input type="number" value=".5" step=".1" min="0" max="20" id="fp" onchange="update()"></input><span class="percentLabel">%</span>
+	</td>
+</tr>
+<tr>
+	<td>
+	False negative rate of the test (percent chance of a negative test given that you do have COVID-19):
+	</td>
+	<td>
+	<input type="number" value="20" step=".1" min="0" max="100" id="fn" onchange="update()"></input><span class="percentLabel">%</span>
+	</td>
+</tr>
+<tr><td>
+	Community COVID-19 positivity rate (approximate percent of people getting tested who have COVID-19): 
+	</td>
+	<td>
+	<input type="number" value="2" step=".5" min="0" max="100" id="pr" onchange="update()"></input><span class="percentLabel">%</span>
+	</td>
+</tr>
+<tr>
+	<td>Probability that you have COVID-19 given that you got a positive test result: </td>
+	<td><span id="wrongpos">76.6</span><span class="percentLabel">%</span></td>
+</tr>
+</table>
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+<script>
+
+
+function getProb(false_pos_rate, false_neg_rate, pos_rate) {
+    let wrong_pos = (1-pos_rate/100)*false_pos_rate/100
+    let true_pos = pos_rate/100*(1-false_neg_rate/100)
+    let prob_covid = true_pos/(true_pos + wrong_pos)*100
+
+    return parseFloat(prob_covid.toPrecision(3));
+}
+
+function update() {
+	var false_pos_rate = parseFloat($("#fp").val())
+	var false_neg_rate = parseFloat($("#fn").val())
+    var pos_rate = parseFloat($("#pr").val())
+    wrong_pos = getProb(false_pos_rate, false_neg_rate, pos_rate)
+	$("#wrongpos").html(wrong_pos)
+}
+
+function setup() {
+	$("input").on("keyup", function(){
+		update()
+	})
+    $("input").on("click", function(){
+		update()
+	})
+}
+
+$(document).on("ready", setup())
+
+</script>
+</body>
+</html>
