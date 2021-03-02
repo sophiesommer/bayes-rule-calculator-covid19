@@ -15,6 +15,7 @@
 	}
 	table {
 		margin-top: 10px;
+		flex-grow: 1;
 	}
 	td {
 		padding: 5px;
@@ -30,19 +31,29 @@
 	.percentLabel{
 		margin-left: 3px;
 	}
+	.container {
+		display: inline-flex;
+		flex-direction: column;
+		height: 100%;
+	}
+	.header {
+		font-size: 12px;
+		padding: 5px;
+	}
+	.footer {
+		font-size: 12px;
+		padding: 5px;
+	}
 
 </style>
 </head>
 <body>
 <div class="container">
+<div class="header">Note: SARS-CoV-2 is the virus that causes COVID-19 </div>
 <table>
 <tr>
-	<th></th>
-	<th class=""></th>
-</tr>
-<tr>
 	<td>
-	False positive rate of the test (percent chance of a positive test given that you don't have COVID-19):
+	False positive rate of the test (percent chance of a positive test given that you don't have SARS-CoV-2):
 	</td>
 	<td>
 	<input type="number" value=".5" step=".1" min="0" max="20" id="fp" onchange="update()"></input><span class="percentLabel">%</span>
@@ -50,24 +61,27 @@
 </tr>
 <tr>
 	<td>
-	False negative rate of the test (percent chance of a negative test given that you do have COVID-19):
+	False negative rate of the test (percent chance of a negative test given that you do have SARS-CoV-2):
 	</td>
 	<td>
-	<input type="number" value="20" step=".1" min="0" max="100" id="fn" onchange="update()"></input><span class="percentLabel">%</span>
+	<input type="number" value="25" step=".1" min="0" max="100" id="fn" onchange="update()"></input><span class="percentLabel">%</span>
 	</td>
 </tr>
 <tr><td>
-	Community COVID-19 positivity rate (approximate percent of people getting tested who have COVID-19): 
+	Community SARS-CoV-2 positivity rate (approximate percent of people getting tested who have SARS-CoV-2): 
 	</td>
 	<td>
 	<input type="number" value="2" step=".5" min="0" max="100" id="pr" onchange="update()"></input><span class="percentLabel">%</span>
 	</td>
 </tr>
 <tr>
-	<td>Probability that you have COVID-19 given that you got a positive test result: </td>
-	<td><span id="wrongpos">76.6</span><span class="percentLabel">%</span></td>
+	<td>Probability that you have SARS-CoV-2 given that you got a positive test result: </td>
+	<td><span id="wrongpos">75.4</span><span class="percentLabel">%</span></td>
 </tr>
 </table>
+<div class="footer">
+	Made by Sophie Sommer
+</div>
 </div>
 <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
